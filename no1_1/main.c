@@ -6,6 +6,12 @@
 //  Copyright © 2020 谢容海. All rights reserved.
 //
 
+/**
+ 1.    数制转换
+ a)    涉及知识点：字符串处理、流程控制
+ b)    要求：将输入的2进制字符串转换为10进制数输出。
+ 
+ */
 #include <stdio.h>
 #include <string.h>
 int main()

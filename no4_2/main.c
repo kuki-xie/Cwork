@@ -6,6 +6,16 @@
 //  Copyright © 2020 谢容海. All rights reserved.
 //
 
+/**
+ 8.    RLE压缩解压算法
+ 涉及知识点：文件读写、位操作、内存管理、结构体定义、RLE算法、命令行参数
+ 要求：
+ 编写一个程序，可以在命令行输入参数，完成指定文件的压缩解压
+ 命令行参数如下
+ rle file1 –c(-d) file2
+ 第一个参数为可执行程序名称，第二个参数为原始文件名，第三个参数为压缩或解压缩选项，第四个参数为新文件名
+
+ */
 #include <stdio.h>#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

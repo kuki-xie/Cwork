@@ -6,6 +6,13 @@
 //  Copyright © 2020 谢容海. All rights reserved.
 //
 
+/**
+ 7.    快速排序算法
+ a)    涉及知识点：数组、快速排序算法
+ b)    要求：
+ 编写一个程序，对用户输入的若干整数，采用快速排序算法，完成从小到大的排序。
+
+ */
 #include <stdio.h>
 int qusort(int s[],int start,int end)    //自定义函数 qusort()
 {

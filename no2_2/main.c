@@ -6,6 +6,12 @@
 //  Copyright © 2020 谢容海. All rights reserved.
 //
 
+/**
+ 4.    复杂数据结构-动态链表
+a)    涉及知识点：内存管理、结构体定义、指针运用、函数
+b)    要求：
+链表是一种重要的数据结构，需要动态的进行存储分配，要求通过函数分别实现动态链表的建立、结点的插入、结点的删除以及链表的输出。
+*/
 #include<stdio.h>
 #include<stdlib.h>
 typedef int ElemType;

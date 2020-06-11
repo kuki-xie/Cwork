@@ -6,6 +6,12 @@
 //  Copyright © 2020 谢容海. All rights reserved.
 //
 
+/**
+ 5.    C源程序处理
+ a)    涉及知识点：文件读写
+ b)    要求：将合法C源程序每行前加上行号并删除其所有注释。
+
+ */
 #include <stdio.h>
 
 int main(int argc, const char * argv[]) {

@@ -6,6 +6,15 @@
 //  Copyright © 2020 谢容海. All rights reserved.
 //
 
+/**
+ 6.    位图直方图均衡
+ a)    涉及知识点：文件读写、结构体定义、基本图像处理算法、命令行参数
+ b)    要求：
+ 编写一个程序，可以在命令行输入参数，完成指定文件的直方图均衡，并存储到新文件，命令行参数如下
+ hist file1.bmp file2.bmp
+ 第一个参数为可执行程序名称，第二个参数为原始图像文件名，第三个参数为新文件名
+
+ */
 #include<stdio.h>
 #include<stdlib.h>
 #include<sys/malloc.h>
