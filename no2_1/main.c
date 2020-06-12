@@ -19,7 +19,7 @@
 #define T 1
 #define F 0
 
-typedef struct
+typedef struct//定义结构体
 {
     int elem[M];
     int top;
@@ -58,15 +58,15 @@ int main()
             case 2:
                 printf("请输入您想输入元素的个数\n");
                 scanf("%d", &n);
-                push(stack, n);
+                push(stack, n);//压栈
                 show(stack);
                 break;
             case 4:
-                pop(stack);
+                pop(stack);//弹栈
                 show(stack);
                 break;
             case 0:
-                (getTop(stack, value) == 1) ? printf("栈顶元素是:  %d\n", *value) : printf("这是个空栈！！！\n");
+                (getTop(stack, value) == 1) ? printf("栈顶元素是:  %d\n", *value) : printf("这是个空栈！！！\n");//返回栈顶元素
                 show(stack);
                 break;
             default:
@@ -82,7 +82,7 @@ int init(SeqStack *stack) //初始化顺序栈
 {
     if (stack != NULL)
     {
-        stack->top = -1; //置为空栈
+        stack->top = -1; //stack指针指向top成员，置为空栈
         return T;
     }
     else
@@ -98,7 +98,7 @@ void push(SeqStack *stack, int n) //进栈，将元素压入栈中
         for (i = 0; i < n; i++)
         {
             scanf("%d", &n2);
-            stack->top++;
+            stack->top++;//栈元素数量增加
             stack->elem[stack->top] = n2;
         }
         printf("栈空间不足\n");
@@ -117,7 +117,7 @@ void pop(SeqStack *stack)//获取栈顶元素
         printf("栈为空！！\n");//栈为空操作失败
     }
     else{
-        a=stack->elem[stack->top];
+        a=stack->elem[stack->top];//取出栈顶元素
         stack->top--;
         printf("栈顶元素%d出栈成功.\n",a);//出栈成功
     }

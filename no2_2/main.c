@@ -14,15 +14,14 @@ b)    要求：
 */
 #include<stdio.h>
 #include<stdlib.h>
-typedef int ElemType;
 //定义结构体
 typedef struct node
 {
-    ElemType data;//int类型的data
+    int data;//int类型的data
     struct node*next;//结构体本度身类型的指针next;
-}*list ,node;//声明一个struct node结构体类型的结构体变量;声明一个struct node结构体类型的指针变权量 b
+}*list ,node;//声明一个struct node结构体类型的结构体变量;声明一个struct node结构体类型的指针变量
 
-list init()
+list init()//链表初始化
 {
     list head=(list)malloc(sizeof(node));//头结点申请地址
     if (!head) {
@@ -37,7 +36,7 @@ list init()
 void create(list l,int a[],int n)
 {
     int i;
-    list p,q;
+    list p,q;//两个指针
     q=l;
     for(i=0;i<n;i++)
     {
@@ -50,7 +49,7 @@ void create(list l,int a[],int n)
     printf("链表建立成功！\n");
 }
 
-void print(list head)
+void print(list head)//输出
 {
     list p=head->next;//p为头结点下一个结点
     printf("打印链表:\n");
@@ -71,7 +70,7 @@ int insert(list head,int data1,int data2)
         {
             q=(list)malloc(sizeof(node));//创建新结点
             q->data=data2;
-            q->next=p->next;
+            q->next=p->next;//使p,q下一个结点位置相同
             p->next=q;//q结点插到q之后
             return 1;
         }
@@ -86,10 +85,10 @@ int delete(list head,int data)
     list p=head,q;
     while(p->next)//依次往后读
     {
-        if(p->next->data==data)
+        if(p->next->data==data)//找到相符
         {
             q=p->next;//q指针指向p后方
-            p->next=q->next;
+            p->next=q->next;//p,q指针下一结点位置相同
             free(q);
             return 1;
         }
@@ -140,9 +139,9 @@ int isEmpty(list head)
 
 int main()
 {
-    list head=init();
+    list head=init();//链表初始化
     int length;
-    if (isEmpty(head)) {
+    if (isEmpty(head)) {//判断是否为空
         length=listLength(head);
         printf("当前链表为空表，长度为%d\n",length);
     }
@@ -154,11 +153,14 @@ int main()
     for (i=0; i<n; i++) {
         scanf("%d",&a[i]);
     }
-    create(head, a, n);
-    print(head);
+    
+    create(head, a, n);//创建链表
+    print(head);//输出链表
+    
     int insertNum,newNode;
     printf("请输入要插入的位置的结点和插入的结点:\n");
     scanf("%d %d",&insertNum,&newNode);
+    //插入结点
     if(insert(head, insertNum, newNode))
     {
         printf("插入成功!\n");
@@ -170,7 +172,8 @@ int main()
     int deleteNum;
     printf("请输入要删除的结点:\n");
     scanf("%d",&deleteNum);
-    if(delete(head, deleteNum))
+    //删除结点
+    if(delete(head, deleteNum))//根据返回值判断是否成功
     {
         printf("删除成功！\n");
         print(head);
@@ -179,6 +182,7 @@ int main()
     {
         printf("删除失败！\n");
     }
+    //销毁链表，结束
     if(destory(head)){
         printf("链表销毁成功！\n");
     }

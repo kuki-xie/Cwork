@@ -32,14 +32,14 @@ int main() //主函数
 {
     printf("Please type the first number :\n");
     scanf("%s", s1); //输入第一个数字
-    getchar();
+    getchar();//读掉回车符
     printf("Please choose + or - :\n");
     scanf("%c", &c); //选择加减号
     printf("Please type the next number :\n");
     scanf("%s", s2); //输入第二个数
     
-    len1 = strlen(s1); //求第一个数的位数
-    len2 = strlen(s2); //求第二个的位数
+    len1 = (int)strlen(s1); //求第一个数的位数
+    len2 = (int)strlen(s2); //求第二个的位数
     
     switch (c)
     {
@@ -73,7 +73,7 @@ void plus(char s1[], char c, char s2[])
     for (i = 0; i <= M; i++) //实现大数的加法
     {
         num_a[i] = num_a[i] + num_b[i];
-        if (num_a[i] > 9)
+        if (num_a[i] > 9)//逢10进1
         {
             num_a[i] = num_a[i] - 10;
             num_a[i + 1]++;
@@ -81,7 +81,7 @@ void plus(char s1[], char c, char s2[])
     }
     
     for (i = M - 1; i >= 0 && num_a[i] == 0; i--)
-        ; //求得最终结果的位数
+        ; //排除0求得最终结果的位数
     printf("The answer is :");
     if (i > 0)
     {
@@ -99,17 +99,18 @@ void plus(char s1[], char c, char s2[])
 void sub(char s1[], char c, char s2[])
 {
     //k的值是参与运算的数据最大位数
-    if (len1 > len2)
-        k = len1;
-    else
-        k = len2;
-    num_c[0] = 0;
+    k=(len1 > len2) ?len1:len2;
+    /*if (len1 > len2)
+     k = len1;
+     else
+     k = len2;
+     num_c[0] = 0;*/
     
     //n>0表示a大于b,n<0,表示a<b,n=0表示a=b
     if (len1 > len2)
         n = 1;
-    else if (len1 == len2)
-        n = strcmp(s1, s2);
+    else if (len1 == len2)//位数相同进行比较
+        n = strcmp(s1, s2);/*strcmp函数是string compare(字符串比较)的缩写，用于比较两个字符串并根据比较结果返回整数。基本形式为strcmp(str1,str2)，若str1=str2，则返回零；若str1<str2，则返回负数；若str1>str2，则返回正数。*/
     else
         n = -1;
     
@@ -126,7 +127,7 @@ void sub(char s1[], char c, char s2[])
     //具体执行减法运算
     for (i = 0; i < k; i++)
     {
-        if (n >= 0)
+        if (n >= 0)//第一数比第二数大
         {
             if (num_a[i] - num_b[i] >= 0) //第一个数I位比第二个数I位大
                 num_c[i] = num_a[i] - num_b[i];
@@ -136,11 +137,11 @@ void sub(char s1[], char c, char s2[])
                 num_a[i + 1]--;                         //第一个数I+1位去1
             }
         }
-        else
+        else//第一个数比第二数小
         {
             if (num_b[i] - num_a[i] >= 0)
                 num_c[i] = num_b[i] - num_a[i];
-            else
+            else//向前一位数借10
             {
                 num_c[i] = num_b[i] + 10 - num_a[i];
                 num_b[i + 1]--;
@@ -151,7 +152,7 @@ void sub(char s1[], char c, char s2[])
     for (i = k - 1; i >= 0 && num_c[i] == 0; i--)
         ; //求得最终结果的位数
     printf("The answer is :");
-    if (n < 0)
+    if (n < 0)//负数
         printf("-");
     if (i > 0)
     {
