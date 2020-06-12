@@ -52,7 +52,7 @@ int main(int argc,char **argv)
  */
 int RLE_Decompression(char *infile,char *outfile)
 {
-    register int count,i;
+    register int count;
     char space[255],temp;
     FILE *inbuf,*outbuf;
     //检验是否能打开
@@ -75,7 +75,7 @@ int RLE_Decompression(char *infile,char *outfile)
     while (!feof(inbuf)) {
         count=(int)fgetc(inbuf);//字符表示的相同字母个数
         temp=fgetc(inbuf);//所读字母
-        for (i=0; i<count; i++) {
+        for (int i=0; i<count; i++) {
             fputc(temp, outbuf);//被写入对象，被写入的流
         }
     }
@@ -112,18 +112,18 @@ int RLE_Compression(char *infile,char *outfile)
     }
     
     temp=fgetc(inbuf);//获取第一个字符
-    flag=temp;
+    flag=temp;//基准值
     count=1;
     
     while (!feof(inbuf)) {
-        temp=fgetc(inbuf);
+        temp=fgetc(inbuf);//第一字符做基准值
         if(temp==flag)//下一个字符和前一个相等
         {
             count++;//相同字符数
         }
         else
         {
-            fputc((char)(count+'0'), outbuf);//将长度放入文件
+            fputc(count, outbuf);//将长度放入文件
             fputc(flag, outbuf);//将字符放入
             flag=temp;//改变标尺
             count=1;

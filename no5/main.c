@@ -6,6 +6,16 @@
 //  Copyright © 2020 谢容海. All rights reserved.
 //
 
+/**
+ 9.    简单文件数据库-模拟图书馆管理系统
+ 涉及知识点：文件读写、内存管理、结构体定义、基本数据结构、高级格式化输入输出
+ 要求：
+ 编写一个程序模拟图书管理系统。用户分为管理员和读者两类，分别显示不同文本格式菜单，通过菜单项对应数字进行选择。读者菜单包括借书、还书、查询等功能。管理员菜单包括图书和读者信息录入、修改和删除。图书信息至少应包括：编号、书名、数量，读者信息至少应包括：编号、姓名、所借图书。可根据图书名称或编号进行图书信息查询，可查询某本书现在被哪些读者借走。
+ 命令行参数如下：
+ Libsim –a(-u) xxxx
+ 第一个参数为可执行程序名称；第二个参数为用户身份，-a表示管理员，-u表示读者；第三个参数为用户名
+
+ */
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -57,7 +67,7 @@ void f1(char *s)
 {
     char *t;
     t = s;
-    while (*s == ' ')
+    while (*s == ' ')//遇到空格，不读入
     {
         s++;
     }
@@ -69,11 +79,11 @@ void f1(char *s)
 void f2(char *s)//删除后导空格
 {
     int i = 0, k;
-    while (s[i] != '\0')
+    while (s[i] != '\0')//读到末尾
     {
         i++;
     }
-    for (k = i - 1; s[k] == ' '; k--)
+    for (k = i - 1; s[k] ==32; k--)
         ;
     
     s[k + 1] = '\0';
@@ -96,7 +106,7 @@ int bookInput()//图书信息录入
             char buff[100] = {0};
             for (int j = 0; j < strlen(buf); j++)
             {
-                if ((buf[j] >= 'A' && buf[j] <= 'Z') || (buf[j] >= 'a' && buf[j] <= 'z') || buf[j] == ' ')//判断图书
+                if ((buf[j] >= 'A' && buf[j] <= 'Z') || (buf[j] >= 'a' && buf[j] <= 'z') || buf[j] == 32)//判断图书
                 {
                     buff[k] = buf[j];
                     k++;
@@ -140,14 +150,14 @@ void bookOutput()
             s[0] = (BOOKS[i].id / 100) + '0';
             s[1] = (BOOKS[i].id / 10) + '0';
             s[2] = (BOOKS[i].id % 10) + '0';//判断书id
-            s[3] = ' ';
-            s[4] = ' ';
+            s[3] = 32;
+            s[4] = 32;
             for (int j = 0; j < n; j++)//录入书名
             {
                 s[5 + j] = BOOKS[i].name[j];
             }
-            s[5 + n] = ' ';
-            s[6 + n] = ' ';//做间隔
+            s[5 + n] = 32;
+            s[6 + n] = 32;//做间隔
             for (int j = 2; j >= 0; j--)
             {
                 s[7 + n + j] = num % 10 + '0';
@@ -217,25 +227,25 @@ void readerOutput()
             s[0] = (READERS[i].id / 100) + '0';//输入书id
             s[1] = (READERS[i].id / 10) + '0';
             s[2] = (READERS[i].id % 10) + '0';
-            s[3] = ' ';
-            s[4] = ' ';
+            s[3] = 32;
+            s[4] = 32;
             for (int j = 0; j < rnamelen; j++)//输入书名
             {
                 s[5 + j] = READERS[i].name[j];
             }
-            s[5 + rnamelen] = ' ';
-            s[6 + rnamelen] = ' ';
+            s[5 + rnamelen] = 32;
+            s[6 + rnamelen] = 32;
             s[7 + rnamelen] = (READERS[i].booklent.id / 100) + '0';//谁让所借书id
             s[8 + rnamelen] = (READERS[i].booklent.id / 10) + '0';
             s[9 + rnamelen] = (READERS[i].booklent.id % 10) + '0';
-            s[10 + rnamelen] = ' ';
-            s[11 + rnamelen] = ' ';
+            s[10 + rnamelen] = 32;
+            s[11 + rnamelen] = 32;
             for (int j = 0; j < rbnamelen; j++)//输入所借书名
             {
                 s[12 + rnamelen + j] = READERS[i].booklent.name[j];
             }
-            s[12 + rnamelen + rbnamelen] = ' ';
-            s[13 + rnamelen + rbnamelen] = ' ';
+            s[12 + rnamelen + rbnamelen] = 32;
+            s[13 + rnamelen + rbnamelen] = 32;
             for (int j = 2; j >= 0; j--)//输入所借书数量
             {
                 s[14 + rnamelen + rbnamelen + j] = rbooknum % 10 + '0';
@@ -259,14 +269,14 @@ void readerOutput()
 int getBookId(char s[])
 {
     int i = 0, num = 0, a[100], t = 0;
-    
-    while (s[i] >= '0' && s[i] <= '9')
-    {
-        a[t] = s[i] - '0';//转换为int型
-        i++;
-        t++;
+    for(i=0;i<strlen(s);i++){
+        while (s[i] >= '0' && s[i] <= '9')
+        {
+            a[t] = s[i] - '0';//转换为int型
+            i++;
+            t++;
+        }
     }
-    
     for (i = 0; i < t; i++)//转换为实际数字
     {
         num = num + pow(10, t - 1 - i) * a[i];
@@ -291,7 +301,7 @@ int getBookNum(char s[])
             i++;
             t++;
         }
-        if (str[i] == ' ')
+        if (str[i] == 32)
         {
             break;
         }
