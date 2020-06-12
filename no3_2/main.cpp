@@ -24,7 +24,7 @@ typedef unsigned short int WORD;
 typedef unsigned int DWORD;
 typedef unsigned char BYTE;
 
-typedef struct tagBITMAPFILEHEADR
+typedef struct tagBITMAPFILEHEADR//位图文件头
 {
     WORD bfType;//位图文件的类型，必须为BM(0-1)字节
     DWORD bfSize;//位图文件的大小，以字节为单位（2-5）字节
@@ -33,7 +33,7 @@ typedef struct tagBITMAPFILEHEADR
     DWORD bfOffBits;//位图数据的起始位置（10-13）字节，以相对于文件头的偏移量表示，以字节为单位
 } BITMAPFILEHEADR;
 
-typedef struct tagBITMAPINFOHEAER
+typedef struct tagBITMAPINFOHEAER//位图信息头
 {
     DWORD biSize;//本结构所占用字节数（14-17字节）
     DWORD biWidth;//位图的宽度，以像素为单位（18-21字节）
@@ -63,7 +63,10 @@ int main(int argc,char **argv)
      {
      printf("%s\n",argv[i]);
      }*/
-    FILE *org=fopen(argv[2], "rb");//要读入的BMP文件
+    if (argc!=3) {
+        printf("The arguments number is not 3\n");
+    }
+    FILE *org=fopen(argv[1], "rb");//要读入的BMP文件
     if(org==0)
         return 0;
     BITMAPFILEHEADR header;//BMP文件头
@@ -82,7 +85,7 @@ int main(int argc,char **argv)
     int lineByte=(8*width/8+3)/4*4;//计算位图每行所占的字节数
     RGBQUAD *ColorTable;
     ColorTable=new RGBQUAD[256];//设置颜色映射表
-    fread(ColorTable, 4, 256, org);
+    fread(ColorTable, 4, 256, org);//第一个是指针，第二个是每个元素个数，第三个是元素个数
     
     BYTE *orgBuf,*tagBuf;
     orgBuf=new BYTE[lineByte*height];//读入图像数据
@@ -120,12 +123,12 @@ int main(int argc,char **argv)
     }
     printf("Success!\n");
     
-    FILE *tag=fopen(argv[3], "wb");//要复制的BMP文件
+    FILE *tag=fopen(argv[2], "wb");//要复制的BMP文件
     if (tag==0) {
         return 0;
     }
-    fwrite(&header, 14, 1, tag);
-    fwrite(&info, 40, 1, tag);
+    fwrite(&header, 14, 1, tag);//位图文件头信息数14
+    fwrite(&info, 40, 1, tag);//位图信息头字节数40
     fwrite(ColorTable, 4, 256, tag);
     fwrite(tagBuf, lineByte*height, 1, tag);
     fclose(tag);

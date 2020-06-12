@@ -22,22 +22,22 @@ int qusort(int s[],int start,int end)    //自定义函数 qusort()
     s[0]=s[start];    //设置基准值
     while(i<j)
     {
-        while(i<j&&s[0]<s[j])
+        while(i<j&&s[0]<s[j])//最右边的找比基准值小的
             j--;    //位置左移
         if(i<j)
         {
             s[i]=s[j];    //将s[j]放到s[i]的位置上
             i++;    //位置右移
         }
-        while(i<j&&s[i]<=s[0])
+        while(i<j&&s[i]<=s[0])//最左边找比基准值大的
             i++;    //位置右s移
-        if(i<j)
+        if(i<j)//找到了一对相符
         {
             s[j]=s[i];    //将大于基准值的s[j]放到s[i]位置
             j--;    //位置左移
         }
     }
-    s[i]=s[0];    //将基准值放入指定位置
+    s[i]=s[0];    //相遇，将基准值放入指定位置
     if (start<i)
         qusort(s,start,j-1);    //对分割出的部分递归调用qusort()函数
     if (i<end)
